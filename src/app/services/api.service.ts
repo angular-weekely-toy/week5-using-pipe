@@ -4,6 +4,7 @@ import { AlertService } from 'src/app/services/alert/alert.service';
 import { Observable, of } from 'rxjs';
 import { finalize, map, mergeMap } from 'rxjs/operators';
 import { ValidUtil } from 'src/app/utils/ValidUtil';
+import { Alert } from 'src/app/services/alert/Alert';
 
 export type HttpOption = {
   headers?: HttpHeaders | {
@@ -81,7 +82,7 @@ export class ApiService {
   }
 
   public get<T>(url: string, options: ApiHttpOption = {}): Observable<T> {
-    let pro;
+    let pro: Alert;
     const httpObservable = this.http.get<T>(url, this.toGetDeleteHttpOption(options));
     const observable = of(true)
       .pipe(
@@ -92,50 +93,50 @@ export class ApiService {
           return httpObservable;
         }),
         map(it => {
-          try{pro.out(); }catch (e) {}
+          try{pro.close(); }catch (e) {}
           return it;
         }),
         finalize(() => {
-          try{pro.out(); }catch (e) {}
+          try{pro.close(); }catch (e) {}
         }),
       );
     return observable;
   }
 
   public delete<T>(url: string, options: ApiHttpOption = {}): Observable<T> {
-    let pro;
+    let pro: Alert;
     const httpObservable = this.http.delete<T>(url, this.toGetDeleteHttpOption(options));
     const observable = of(true)
       .pipe(
         map(it => pro = this.alertService.showProgress('delete')),
         mergeMap(it => httpObservable),
-        finalize(() => pro.out())
+        finalize(() => pro.close())
       );
     return observable;
   }
 
   public post<T>(url: string, options: ApiHttpOption = {}): Observable<T> {
-    let pro;
+    let pro: Alert;
     const optionsSet = this.toPostPutHttpOption(url, options);
     const httpObservable = this.http.post<T>(optionsSet.url, optionsSet.params, optionsSet.httpOptions);
     const observable = of(true)
       .pipe(
         map(it => pro = this.alertService.showProgress('post')),
         mergeMap(it => httpObservable),
-        finalize(() => pro.out())
+        finalize(() => pro.close())
       );
     return observable;
   }
 
   public put<T>(url: string, options: ApiHttpOption = {}): Observable<T> {
-    let pro;
+    let pro: Alert;
     const optionsSet = this.toPostPutHttpOption(url, options);
     const httpObservable = this.http.put<T>(optionsSet.url, optionsSet.params, optionsSet.httpOptions);
     const observable = of(true)
       .pipe(
         map(it => pro = this.alertService.showProgress('put')),
         mergeMap(it => httpObservable),
-        finalize(() => pro.out())
+        finalize(() => pro.close())
       );
     return observable;
   }
