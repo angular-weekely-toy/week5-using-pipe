@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from 'src/app/services/api.service';
+import { ApiHttpOption, ApiService } from 'src/app/services/api.service';
+import { NavigatorUtil } from 'src/app/utils/NavigatorUtil';
+import { catchError, map, mergeMap } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { Weather } from './models/openweathermap';
+import { AlertService } from './services/alert/alert.service';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -7,15 +13,17 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'week1-todo-list';
-  weather = '';
-  constructor(private apiService: ApiService) {
+  weather?: Weather;
+  constructor(private apiService: ApiService, private alertService: AlertService) {
+
   }
 
   ngOnInit(): void {
-    this.apiService.get('https://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=58f4c27fb2b2f7d62632137530013fb3&lang=kr')
-      .subscribe(it => {
-      this.weather = ((it as any).weather[0].description);
-    });
+    this.alertService.asyncTask(NavigatorUtil.getGeoLocationCurrentPosition()).pipe(
+      map(it => ({lat: it.coords.latitude, lon: it.coords.longitude})),
+      catchError((err, caught) => of({q: 'Seoul'})),
+      mergeMap(it => of({appid: environment.openwaethermapAppId, lang: 'kr', ...it})),
+      mergeMap(params => this.apiService.get<Weather>(environment.openwaethermapWeatherUrl, {params}))
+    ).subscribe(it => this.weather = it);
   }
 }
