@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiHttpOption, ApiService } from 'src/app/services/api.service';
+import { ApiService } from 'src/app/services/api.service';
 import { NavigatorUtil } from 'src/app/utils/NavigatorUtil';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -19,11 +19,11 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.alertService.asyncTask(NavigatorUtil.getGeoLocationCurrentPosition()).pipe(
+    this.alertService.progressTask(NavigatorUtil.getGeoLocationCurrentPosition(), 'weather').pipe(
       map(it => ({lat: it.coords.latitude, lon: it.coords.longitude})),
       catchError((err, caught) => of({q: 'Seoul'})),
       mergeMap(it => of({appid: environment.openwaethermapAppId, lang: 'kr', ...it})),
-      mergeMap(params => this.apiService.get<Weather>(environment.openwaethermapWeatherUrl, {params}))
+      mergeMap(params => this.apiService.get<Weather>(environment.openwaethermapWeatherUrl, {params, noAlertProgress: true}))
     ).subscribe(it => this.weather = it);
   }
 }

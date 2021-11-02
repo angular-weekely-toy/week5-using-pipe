@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   openwaethermapAppId: '58f4c27fb2b2f7d62632137530013fb3',
   openwaethermapWeatherUrl: 'https://api.openweathermap.org/data/2.5/weather',
+  pantryStorageUrl: 'https://getpantry.cloud/apiv1/pantry/7da44c66-f480-4eaa-80b2-d87d7a9a8630',
 };
 
 /*

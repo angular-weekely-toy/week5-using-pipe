@@ -15,7 +15,7 @@ export class AlertService {
 
   constructor() { }
 
-  asyncTask<T>(observable: Observable<T>, title = 'task'): Observable<T> {
+  progressTask<T>(observable: Observable<T>, title = 'task'): Observable<T> {
     let pro: Alert;
     return of(true).pipe(
         map(it => {
@@ -32,6 +32,10 @@ export class AlertService {
           try{pro.close(); }catch (e) {}
         })
       );
+  }
+
+  public progress(msg: string): Alert {
+    return new AlertProgress(msg, this);
   }
 
   public showProgress(msg: string): Alert {

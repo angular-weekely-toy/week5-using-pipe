@@ -1,0 +1,10 @@
+<div class="todo-item-container">
+  <div class="input-group">
+    <div class="input-group-text">
+      <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input" [checked]="this.todo.successDate?.length > 0"  (change)="changeSuccess($event)">
+    </div>
+    <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username with two button addons" [(ngModel)]="todo.title" >
+    <button class="btn btn-outline-secondary" type="button" (click)="update.emit(this.todo)">update</button>
+    <button class="btn btn-outline-danger" type="button" (click)="delete.emit(this.todo.key)">delete</button>
+  </div>
+</div>

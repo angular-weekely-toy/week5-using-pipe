@@ -1,0 +1,12 @@
+<p><button (click)="previous()">◀️</button> {{ viewDay | date:'yyyy-MM-dd (EEEE)' }} <button (click)="next()">▶️️</button></p>
+<p>=== todo works! ===</p>
+<!--https://angular.kr/api/common/NgForOf-->
+<div *ngFor="let todo of todos; index as i;">
+  <app-todo-item [todo]="todo" (delete)="delete($event)" (update)="update($event)"></app-todo-item>
+</div>
+<form #f="ngForm" (ngSubmit)="onSubmit(f)">
+  <div class="input-group mb-3">
+    <input type="text" class="form-control" name="title" ngModel required>
+    <button class="btn btn-outline-secondary"  id="button-addon2" type="submit">write</button>
+  </div>
+</form>

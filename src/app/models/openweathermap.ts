@@ -1,42 +1,42 @@
 // https://openweathermap.org/
 
-class Coord {
+export type Coord = {
   lon: number;
   lat: number;
-}
+};
 
-class WeatherDescription {
+export type WeatherDescription = {
   id: number;
   main: string;
   description: string;
   icon: string;
-}
+};
 
-class Main {
+export type Main = {
   temp: number;
   pressure: number;
   humidity: number;
   temp_min: number;
   temp_max: number;
-}
+};
 
-class Wind {
+export type Wind = {
   speed: number;
   deg: number;
-}
+};
 
-class Clouds {
+export type Clouds = {
   all: number;
-}
+};
 
-class Sys {
+export type Sys = {
   type: number;
   id: number;
   message: number;
   country: string;
   sunrise: number;
   sunset: number;
-}
+};
 
 export type Weather = {
     coord: Coord;
@@ -51,4 +51,4 @@ export type Weather = {
     id: number;
     name: string;
     cod: number;
-}
+};
