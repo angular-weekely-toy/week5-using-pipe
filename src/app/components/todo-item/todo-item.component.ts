@@ -2,7 +2,7 @@ import { Component, Input, OnInit, Output } from '@angular/core';
 import { Todo } from '../../models/todo';
 import {EventEmitter} from '@angular/core';
 @Component({
-  selector: 'app-todo-item',
+  selector: 'app-todo-item[todo]',
   templateUrl: './todo-item.component.html',
   styleUrls: ['./todo-item.component.css']
 })

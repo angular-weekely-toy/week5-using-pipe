@@ -3,7 +3,6 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { Observable, of } from 'rxjs';
 import { catchError, finalize, map, mergeMap } from 'rxjs/operators';
-import { ValidUtil } from 'src/app/utils/ValidUtil';
 import { Alert } from 'src/app/services/alert/Alert';
 
 export type HttpOption = {
@@ -33,12 +32,8 @@ export class ApiService {
     const httpObservable = this.http.get<T>(url, options as any);
     const observable = of(options.noAlertProgress ? false : pro = this.alertService.showProgress('get'))
       .pipe(
-        mergeMap(it => {
-          return httpObservable;
-        }),
-        finalize(() => {
-          try{pro?.close(); }catch (e) {}
-        }),
+        mergeMap(it => httpObservable),
+        finalize(() => pro?.close()),
       );
     return observable as unknown as Observable<T>;
   }
@@ -49,7 +44,7 @@ export class ApiService {
     const observable = of(options.noAlertProgress ? false : pro = this.alertService.showProgress('delete'))
       .pipe(
         mergeMap(it => httpObservable),
-        finalize(() => pro.close())
+        finalize(() => pro?.close())
       );
     return observable as unknown as Observable<T>;
   }
@@ -60,7 +55,7 @@ export class ApiService {
     const observable = of(options.noAlertProgress ? false : pro = this.alertService.showProgress('post'))
       .pipe(
         mergeMap(it => httpObservable),
-        finalize(() => pro.close())
+        finalize(() => pro?.close())
       );
     return observable as unknown as Observable<T>;
   }
@@ -71,23 +66,21 @@ export class ApiService {
     const observable = of(options.noAlertProgress ? false : pro = this.alertService.showProgress('put'))
       .pipe(
         mergeMap(it => httpObservable),
-        finalize(() => pro.close())
+        finalize(() => pro?.close())
       );
     return observable as unknown as Observable<T>;
   }
-  //
-  // public patch<T>(url: string, options: ApiHttpOption = {}): Observable<T> {
-  //   let pro;
-  //   const optionsSet = this.toPostPutHttpOption(url, options);
-  //   const httpObservable = this.http.patch<T>(optionsSet.url, optionsSet.params, optionsSet.httpOptions);
-  //   const observable = of(true)
-  //     .pipe(
-  //       map(it => pro = this.alertService.showProgress('patch')),
-  //       mergeMap(it => httpObservable),
-  //       finalize(() => pro.out())
-  //     );
-  //   return observable;
-  // }
+
+  public patch<T>(url: string, body: any, options: HttpOption = {}): Observable<T> {
+    let pro: Alert;
+    const httpObservable = this.http.patch<T>(url, body, options as any);
+    const observable = of(options.noAlertProgress ? false : pro = this.alertService.showProgress('put'))
+      .pipe(
+        mergeMap(it => httpObservable),
+        finalize(() => pro?.close())
+      );
+    return observable as unknown as Observable<T>;
+  }
 
 
 }
