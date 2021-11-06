@@ -19,10 +19,6 @@ export class TodoItemComponent implements OnInit {
   }
 
   changeSuccess($event: Event): void {
-    if (($event.currentTarget as HTMLInputElement).checked) {
-      this.todo.successDate = new Date().toISOString();
-    } else {
-      this.todo.successDate = '';
-    }
+    this.todo.successDate = ($event.currentTarget as HTMLInputElement).checked ? new Date().toISOString() : null;
   }
 }

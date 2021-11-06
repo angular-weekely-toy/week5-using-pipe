@@ -9,6 +9,7 @@ import { of, zip } from 'rxjs';
 import { Todo } from 'src/app/models/todo';
 import { NgForm } from '@angular/forms';
 import { RandomUtil } from 'src/app/utils/RandomUtil';
+import { DateUtils } from 'src/app/utils/DateUtils';
 
 @Component({
   selector: 'app-todo-page',
@@ -16,6 +17,7 @@ import { RandomUtil } from 'src/app/utils/RandomUtil';
   styleUrls: ['./todo-page.component.css']
 })
 export class TodoPageComponent implements OnInit {
+  private apiOptions = {observe: 'response', responseType: 'text'} as HttpOption;
   viewDay = new Date();
   todos: Todo[] = [];
   constructor(private apiService: ApiService, private alertService: AlertService, private datePipe: DatePipe) { }
@@ -28,7 +30,10 @@ export class TodoPageComponent implements OnInit {
     const day = this.viewDayStart;
     this.alertService.progressTask(
       this.apiService.get<Pantry>(environment.pantryStorageUrl, {noAlertProgress: true}).pipe(
-      map(it => it.baskets.filter(bit => bit.name.startsWith(day)).sort((a, b) => a.ttl - b.ttl).map(bit => this.apiService.get<Todo>(`${environment.pantryStorageUrl}/basket/${bit.name}`, {noAlertProgress: true}))),
+      map(it => it.baskets.filter(bit => bit.name.startsWith(day))
+        .sort((a, b) => a.ttl - b.ttl)
+        .map(bit => this.apiService.get<Todo>(`${environment.pantryStorageUrl}/basket/${bit.name}`, {noAlertProgress: true}))
+      ),
       mergeMap(it => it?.length ? zip(...it) : of([]))
     ), 'todo').subscribe(it => this.todos = it);
   }
@@ -38,20 +43,21 @@ export class TodoPageComponent implements OnInit {
   }
 
   previous(): void {
-    this.viewDay = new Date(this.viewDay.setDate(this.viewDay.getDate() - 1));
+    this.viewDay = DateUtils.miusDays(this.viewDay, 1);
     this.load();
   }
 
   next(): void {
-    this.viewDay = new Date(this.viewDay.setDate(this.viewDay.getDate() + 1));
+    this.viewDay = DateUtils.plusDays(this.viewDay, 1);
     this.load();
   }
+
 
   onSubmit(f: NgForm): void {
     if (f.valid) {
       const key = `${this.viewDayStart}-${RandomUtil.uuid()}`;
       const body = {key, ...f.value};
-      this.apiService.post<void>(`${environment.pantryStorageUrl}/basket/${key}`, body, {observe: 'response', responseType: 'text'})
+      this.apiService.post<void>(`${environment.pantryStorageUrl}/basket/${key}`, body, this.apiOptions)
         .subscribe(it => this.load());
       f.reset();
     } else {
@@ -60,12 +66,12 @@ export class TodoPageComponent implements OnInit {
   }
 
   delete(key: string): void {
-    this.apiService.delete<void>(`${environment.pantryStorageUrl}/basket/${key}`, {observe: 'response', responseType: 'text'})
+    this.apiService.delete<void>(`${environment.pantryStorageUrl}/basket/${key}`,  this.apiOptions)
       .subscribe(it => this.load());
   }
 
   update(todo: Todo): void {
-    this.apiService.put<void>(`${environment.pantryStorageUrl}/basket/${todo.key}`, todo, {observe: 'response', responseType: 'text'})
+    this.apiService.put<void>(`${environment.pantryStorageUrl}/basket/${todo.key}`, todo,  this.apiOptions)
       .subscribe(it => this.load());
   }
 }

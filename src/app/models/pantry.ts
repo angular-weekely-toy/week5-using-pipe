@@ -1,3 +1,5 @@
+// https://getpantry.cloud/
+
 export type Basket = {
   name: string;
   ttl: number;
