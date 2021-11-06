@@ -1,8 +1,8 @@
 <p><button (click)="previous()">◀️</button> {{ viewDay | date:'yyyy-MM-dd (EEEE)' }} <button (click)="next()">▶️️</button></p>
 <p>=== todo works! ===</p>
 <!--https://angular.kr/api/common/NgForOf-->
-<div *ngFor="let todo of todos; index as i;">
-  <app-todo-item [todo]="todo" (delete)="delete($event)" (update)="update($event)"></app-todo-item>
+<div *ngFor="let todo of todos; index as i;first as isFirst; last as isLast">
+ <span>{{i+1}} {{isFirst?'f':''}}  {{isLast?'l':''}}</span> <app-todo-item [todo]="todo" (delete)="delete($event)" (update)="update($event)"></app-todo-item>
 </div>
 <form #f="ngForm" (ngSubmit)="onSubmit(f)">
   <div class="input-group mb-3">

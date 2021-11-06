@@ -7,7 +7,6 @@ tip
 ## getpantry.cloud
  - https://getpantry.cloud/
 
-
 # angular
 - module
   - https://angular.kr/guide/architecture-modules
