@@ -34,7 +34,10 @@ tip
 
 - ngForm
   - https://angular.kr/api/forms/NgForm
-
+  
+- formGroup
+  - https://angular.kr/api/forms/FormGroup#usage-notes 
+  
 - ngFor
   - https://angular.kr/api/common/NgForOf
 
