@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ApiService, HttpOption } from 'src/app/services/api.service';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { DatePipe } from '@angular/common';
@@ -10,6 +10,8 @@ import { Todo } from 'src/app/models/todo';
 import { NgForm } from '@angular/forms';
 import { RandomUtil } from 'src/app/utils/RandomUtil';
 import { DateUtils } from 'src/app/utils/DateUtils';
+import { InputDelayDirective } from 'src/app/directives/inputDelay.directive';
+import { OpenApiNaver } from 'src/app/models/openapi-naver';
 
 @Component({
   selector: 'app-todo-page',
@@ -20,6 +22,8 @@ export class TodoPageComponent implements OnInit {
   private apiOptions = {observe: 'response', responseType: 'text'} as HttpOption;
   viewDay = new Date();
   todos: Todo[] = [];
+  @ViewChild(InputDelayDirective) child!: InputDelayDirective;
+  public openApiNaver: OpenApiNaver;
   constructor(private apiService: ApiService, private alertService: AlertService, private datePipe: DatePipe) { }
 
   ngOnInit(): void {
@@ -73,5 +77,25 @@ export class TodoPageComponent implements OnInit {
   update(todo: Todo): void {
     this.apiService.put<void>(`${environment.pantryStorageUrl}/basket/${todo.key}`, todo,  this.apiOptions)
       .subscribe(it => this.load());
+  }
+
+  changeData(value: string): void {
+    this.searchBook(value);
+  }
+
+  searchBook(value = this.child.value): void {
+    console.log('-', value);
+    const option = {
+      headers: {
+        'X-Naver-Client-Id': 'Fq3JkmuDgnVEHXOyWOfk',
+        'X-Naver-Client-Secret': 'GbD74HX7qn'
+      },
+      params: {
+        query: value
+      }
+    } as HttpOption;
+    this.apiService.get<OpenApiNaver>(`/openapi-naver/v1/search/book.json`, option).subscribe(it => {
+      this.openApiNaver = it;
+    });
   }
 }

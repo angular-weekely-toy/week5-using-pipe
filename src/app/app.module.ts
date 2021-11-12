@@ -10,6 +10,7 @@ import { DatePipe, registerLocaleData } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LOCALE_ID } from '@angular/core';
 import localeKo from '@angular/common/locales/ko';
+import { InputDelayDirective } from './directives/inputDelay.directive';
 
 /*
 declarations - 이 모듈에서 사용하는 뷰 클래스를 정의한다. Angular에는 컴포넌트, 디렉티브, 파이프 세 종류의 뷰 클래스가 있다.
@@ -31,7 +32,8 @@ registerLocaleData(localeKo);
   declarations: [
     AppComponent,
     TodoPageComponent,
-    TodoItemComponent
+    TodoItemComponent,
+    InputDelayDirective
   ],
   imports: [
     BrowserModule,

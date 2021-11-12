@@ -1,0 +1,10 @@
+{
+  "/openapi-naver": {
+    "target": "https://openapi.naver.com",
+    "secure": false,
+    "pathRewrite": {
+      "^/openapi-naver": ""
+    },
+    "logLevel": "debug"
+  }
+}

@@ -24,6 +24,9 @@ tip
 
 - date
   - formatDate: https://angular.kr/api/common/formatDate
+- 
+- Directives
+  - https://angular.io/guide/attribute-directives
 
 - component
   - selector: https://angular.kr/api/core/Directive#selector 
@@ -37,11 +40,42 @@ tip
 - formGroup
   - https://angular.kr/api/forms/FormGroup#usage-notes 
   
+- Reactive forms
+  - https://angular.kr/guide/reactive-forms
+
+- formControl
+  - https://angular.kr/api/forms/FormControl#usage-notes
+
+- formBuilder
+  - https://angular.kr/api/forms/FormBuilder#usage-notes
+
+- Validators
+  - https://angular.kr/api/forms/Validators
+
+- @HotListener
+  - https://angular.io/api/core/HostListener
+
+- ng-template
+  - https://angular.io/api/core/ng-template
+
 - ngFor
   - https://angular.kr/api/common/NgForOf
+- viewChild
+  - https://stackoverflow.com/questions/40165294/access-multiple-viewchildren-using-viewchild
 
 - httpClient
   - https://angular.kr/guide/http
+
+- Renderer2
+  - https://www.tektutorialshub.com/angular/renderer2-angular/
+
+- cli
+  - https://angular.kr/guide/cli
+  - https://angular.kr/guide/cli-configuration
+  - serve
+    - proxy: https://angular.io/guide/build
+  - ng generate
+    - https://angular.io/cli/generate
 
 # rxjs
 - rxjs map operator 총 정리
