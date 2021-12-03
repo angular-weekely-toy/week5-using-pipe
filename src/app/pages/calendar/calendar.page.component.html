@@ -22,10 +22,18 @@
   <div *ngIf="mode ==='grid'" class="item">{{days[5]}}</div>
   <div *ngIf="mode ==='grid'" class="item">{{days[6]}}</div>
   <div class="item" *ngFor="let item of items" (click)="focusDate(item)">
-    {{item?.date?.getDate()}}
-    <span *ngIf="item?.date && mode === 'block'">{{getDayOfWeekName(item?.date)}}</span>
-    <sup *ngIf="item?.datas?.length">({{item?.datas?.length}})</sup>
+    <div *ngIf="!(item?.datas?.length)">
+      {{item?.date?.getDate()}}
+      <span *ngIf="item?.date && mode === 'block'">{{getDayOfWeekName(item?.date)}}</span>
+    </div>
+    <button *ngIf="(item?.datas?.length)" type="button" class="btn btn-primary position-relative">
+      {{item?.date?.getDate()}}
+      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+        {{item?.datas?.length}}
+      </span>
+    </button>
   </div>
+
 </div>
 <div *ngIf="currentItem">
   <h3>{{getYear(currentItem.date)}}-{{getMonth(currentItem.date)}}-{{getDate(currentItem.date)}}</h3>
