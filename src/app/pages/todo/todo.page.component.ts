@@ -15,15 +15,13 @@ import { OpenApiNaver } from 'src/app/models/openapi-naver';
 
 @Component({
   selector: 'app-todo-page',
-  templateUrl: './todo-page.component.html',
-  styleUrls: ['./todo-page.component.css']
+  templateUrl: './todo.page.component.html',
+  styleUrls: ['./todo.page.component.css']
 })
 export class TodoPageComponent implements OnInit {
   private apiOptions = {observe: 'response', responseType: 'text'} as HttpOption;
   viewDay = new Date();
   todos: Todo[] = [];
-  @ViewChild(InputDelayDirective) child!: InputDelayDirective;
-  public openApiNaver: OpenApiNaver;
   constructor(private apiService: ApiService, private alertService: AlertService, private datePipe: DatePipe) { }
 
   ngOnInit(): void {
@@ -79,23 +77,4 @@ export class TodoPageComponent implements OnInit {
       .subscribe(it => this.load());
   }
 
-  changeData(value: string): void {
-    this.searchBook(value);
-  }
-
-  searchBook(value = this.child.value): void {
-    console.log('-', value);
-    const option = {
-      headers: {
-        'X-Naver-Client-Id': 'Fq3JkmuDgnVEHXOyWOfk',
-        'X-Naver-Client-Secret': 'GbD74HX7qn'
-      },
-      params: {
-        query: value
-      }
-    } as HttpOption;
-    this.apiService.get<OpenApiNaver>(`/openapi-naver/v1/search/book.json`, option).subscribe(it => {
-      this.openApiNaver = it;
-    });
-  }
 }

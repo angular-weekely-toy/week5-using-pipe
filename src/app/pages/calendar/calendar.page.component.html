@@ -1,0 +1,38 @@
+<h1>calendar</h1>
+<div class="btn-group m-4" role="group" aria-label="Basic outlined example">
+  <button type="button" class="btn btn-outline-primary" (click)="changeData()">change data</button>
+  <button type="button" class="btn btn-outline-primary" (click)="mode='grid'">mode grid</button>
+  <button type="button" class="btn btn-outline-primary" (click)="mode='block'">mode block</button>
+</div>
+<div class="navigation-container">
+  <div>
+    <button (click)="plusMonth(-1)">👈</button>
+  </div>
+  <div>{{date.getFullYear()}}-{{getMonth()}}({{getMonthName()}})</div>
+  <div>
+    <button (click)="plusMonth(1)">👉</button>
+  </div>
+</div>
+<div [ngClass]="{container: mode === 'grid', 'container-block': mode === 'block'}">
+  <div *ngIf="mode ==='grid'" class="item">{{days[0]}}</div>
+  <div *ngIf="mode ==='grid'" class="item">{{days[1]}}</div>
+  <div *ngIf="mode ==='grid'" class="item">{{days[2]}}</div>
+  <div *ngIf="mode ==='grid'" class="item">{{days[3]}}</div>
+  <div *ngIf="mode ==='grid'" class="item">{{days[4]}}</div>
+  <div *ngIf="mode ==='grid'" class="item">{{days[5]}}</div>
+  <div *ngIf="mode ==='grid'" class="item">{{days[6]}}</div>
+  <div class="item" *ngFor="let item of items" (click)="focusDate(item)">
+    {{item?.date?.getDate()}}
+    <span *ngIf="item?.date && mode === 'block'">{{getDayOfWeekName(item?.date)}}</span>
+    <sup *ngIf="item?.datas?.length">({{item?.datas?.length}})</sup>
+  </div>
+</div>
+<div *ngIf="currentItem">
+  <h3>{{getYear(currentItem.date)}}-{{getMonth(currentItem.date)}}-{{getDate(currentItem.date)}}</h3>
+
+  <ul>
+    <li *ngFor="let data of currentItem?.datas">
+      {{data.title}}
+    </li>
+  </ul>
+</div>

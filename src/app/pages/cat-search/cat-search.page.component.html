@@ -1,0 +1,19 @@
+<h1>cat search</h1>
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+    BREEDS <span *ngIf="selected">{{selected.name}} <img [src]="selected.image.url" width="40"></span>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+    <li *ngFor="let breed of breeds"><a class="dropdown-item" [ngClass]="{active: selected?.id === breed.id}"  (click)="select(breed)">{{breed.name}}</a></li>
+  </ul>
+</div>
+
+
+<div class="container">
+  <div class="card m-3" style="width: 150px;" *ngFor="let cat of cats">
+    <div class="card-body">
+      <p class="card-text">{{cat.id}}</p>
+    </div>
+    <img [src]="cat.url" class="card-img-top">
+  </div>
+</div>

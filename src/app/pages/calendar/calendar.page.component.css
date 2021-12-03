@@ -1,0 +1,14 @@
+.navigation-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr
+}
+
+.container-block {
+  display: grid;
+  grid-template-columns: 1fr
+}

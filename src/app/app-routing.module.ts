@@ -1,9 +1,17 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { TodoPageComponent } from './pages/todo/todo-page.component';
+import { RouterModule, Routes } from '@angular/router';
+import { TodoPageComponent } from './pages/todo/todo.page.component';
+import { HomePageComponent } from './pages/home/home.page.component';
+import { BookSearchPageComponent } from './pages/book-search/book-search.page.component';
+import { CalendarPageComponent } from './pages/calendar/calendar.page.component';
+import { CatSearchPageComponent } from './pages/cat-search/cat-search.page.component';
 
 const routes: Routes = [
-  { path: '', component: TodoPageComponent },
+  {path: '', component: HomePageComponent},
+  {path: 'todo', component: TodoPageComponent},
+  {path: 'book-search', component: BookSearchPageComponent},
+  {path: 'calendar', component: CalendarPageComponent},
+  {path: 'cat-search', component: CatSearchPageComponent},
 ];
 
 @NgModule({

@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { TodoPageComponent } from './pages/todo/todo-page.component';
+import { TodoPageComponent } from './pages/todo/todo.page.component';
 import { HttpClientModule } from '@angular/common/http';
 import { TodoItemComponent } from './components/todo-item/todo-item.component';
 import { DatePipe, registerLocaleData } from '@angular/common';
@@ -11,6 +11,10 @@ import { FormsModule } from '@angular/forms';
 import { LOCALE_ID } from '@angular/core';
 import localeKo from '@angular/common/locales/ko';
 import { InputDelayDirective } from './directives/inputDelay.directive';
+import { HomePageComponent } from './pages/home/home.page.component';
+import { BookSearchPageComponent } from './pages/book-search/book-search.page.component';
+import { CalendarPageComponent } from './pages/calendar/calendar.page.component';
+import { CatSearchPageComponent } from './pages/cat-search/cat-search.page.component';
 
 /*
 declarations - 이 모듈에서 사용하는 뷰 클래스를 정의한다. Angular에는 컴포넌트, 디렉티브, 파이프 세 종류의 뷰 클래스가 있다.
@@ -33,7 +37,11 @@ registerLocaleData(localeKo);
     AppComponent,
     TodoPageComponent,
     TodoItemComponent,
-    InputDelayDirective
+    InputDelayDirective,
+    HomePageComponent,
+    BookSearchPageComponent,
+    CalendarPageComponent,
+    CatSearchPageComponent
   ],
   imports: [
     BrowserModule,

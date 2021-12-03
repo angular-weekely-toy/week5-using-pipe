@@ -1,0 +1,23 @@
+<h1>book search</h1>
+
+<div class="input-group mb-3">
+  <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2" (appInputDelay)="changeData($event)">
+  <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="searchBook()">Button</button>
+</div>
+
+<ng-template [ngIf]="openApiNaver !== undefined">
+  <div class="card mb-3" style="max-width: 540px;" *ngFor="let item of openApiNaver?.items; index as i;first as isFirst; last as isLast" >
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img [src]="item.image" onerror="this.src='https://thumbs.dreamstime.com/b/transparent-designer-must-have-fake-background-39672616.jpg'" class="img-fluid rounded-start" alt="...">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title" [innerHTML]="item.title"></h5>
+          <p class="card-text" [innerHTML]="item.description"></p>
+          <p class="card-text"><small class="text-muted" [innerHTML]="item.isbn" ></small></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
