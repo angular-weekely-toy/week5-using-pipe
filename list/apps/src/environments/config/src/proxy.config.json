@@ -1,0 +1,9 @@
+{
+    "/send" : {
+        "target" : "https://hooks.slack.com/services/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",
+        "secure" : false,
+        "logLevel": "debug",
+        "changeOrigin": true,
+        "pathRewrite": { "^/send": "" }
+    }
+}

@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  slackUrl: 'https://hooks.slack.com/services',
+  slackKey: 'pFj3QSWv2PKHLJQxOaJCMDVX'
 };
