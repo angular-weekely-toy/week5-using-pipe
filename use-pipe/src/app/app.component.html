@@ -1,0 +1,17 @@
+
+
+<div class="main_wrap">
+  <div class="contents_area">
+    <textarea nz-input placeholder="내용을 적어주세요" [nzAutosize]="{ minRows: 4, maxRows: 6 }" [(ngModel)]="contents"
+      nzSize="large"></textarea>
+  </div>
+
+  <div class="find_area">
+    <input nz-input placeholder="찾을 내용" [(ngModel)]="search" nzSize="large" />
+  </div>
+
+
+  <div class="result">
+    <p [innerHTML]="contents | searchPipe: search"></p>
+  </div>
+</div>
