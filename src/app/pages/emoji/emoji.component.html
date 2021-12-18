@@ -1,0 +1,15 @@
+<p>emoji works!</p>
+<textarea [(ngModel)]="text">
+
+</textarea>
+
+<div>
+ {{text | emoji}}
+</div>
+<div>
+ {{text | emoji: 'ES'}}
+</div>
+
+<div>
+ {{text | emoji: 'T'}}
+</div>

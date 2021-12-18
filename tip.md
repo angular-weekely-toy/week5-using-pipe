@@ -16,6 +16,9 @@ tip
   - providers: NgModule 컨텍스트 안에서 사용하는 서비스 프로바이더를 지정합니다. NgModule 안에서 사용하는 서비스는 이렇게 지정된 서비스 프로바이더를 사용해서 생성되며, 필요한 경우에는 하위 계층에 사용할 서비스 프로바이더를 따로 지정할 수도 있습니다.
   - bootstrap: 애플리케이션의 최상위 뷰로 표시될 최상위 컴포넌트 를 지정합니다. bootstrap 프로퍼티는 최상위 NgModule 에만 지정할 수 있습니다.
 
+- pipe
+  - https://angular.io/cli/generate#pipe-command
+  
 - locale
   - https://angular.kr/api/core/LOCALE_ID
   - 다국어 적용하기
