@@ -7,6 +7,9 @@ tip
 ## getpantry.cloud
  - https://getpantry.cloud/
 
+## emoji
+- https://www.emojiall.com/ko
+
 # angular
 - module
   - https://angular.kr/guide/architecture-modules
