@@ -23,6 +23,7 @@ export class CalendarPageComponent implements OnInit {
 
 
   constructor() {
+    console.log('CalendarPageComponent constructor');
     this.datas =  [
       {date: new Date(2021, 11, 20), title: '20day'},
       {date: new Date(2021, 11, 24), title: 'data1'},

@@ -13,15 +13,14 @@ export class CatSearchPageComponent implements OnInit {
   selected?: Breed;
   cats?: TheCat[];
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService) {
+    console.log('CatSearchPageComponent.constructor()');
+  }
 
   ngOnInit(): void {
     this.apiService.get<Breed[]>('https://api.thecatapi.com/v1/breeds/').subscribe(it => {
       this.breeds = it;
     });
-    // this.apiService.get('https://api.thecatapi.com/v1/images/search?breed_ids=beng').subscribe(it => {
-    //   console.log('----', it);
-    // });
   }
 
   select(breed: Breed): void {
